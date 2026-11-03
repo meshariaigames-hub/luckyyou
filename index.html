@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucky You — Spin the Wheel</title>
+<meta name="description" content="Can't decide? Write down your options, spin the wheel, and let Lucky You pick one at random.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-top:   #0f1c33;
+    --sky-mid:   #1d3557;
+    --sky-low:   #2b4a74;
+    --hill:      #3f6b45;
+    --hill-dark: #2f5436;
+    --cream:     #f5ecd7;
+    --gold:      #c9a24a;
+    --gold-soft: #e0bd6b;
+    --ink:       #10151f;
+    --panel:     rgba(245, 236, 215, 0.06);
+    --line:      rgba(245, 236, 215, 0.18);
+    --muted:     #b9c4d6;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    color: var(--cream);
+    background: var(--sky-top);
+    background-image:
+      radial-gradient(ellipse 120% 70% at 50% 18%, var(--sky-low) 0%, var(--sky-mid) 45%, var(--sky-top) 100%);
+    background-attachment: fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* stars */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* hills along the bottom */
+  .hills {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 180px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 48px 16px 220px;
+  }
+
+  header { text-align: center; }
+
+  .wheel { display: block; margin: 0 auto 26px; }
+
+  h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+    line-height: 0.95;
+    margin: 0 0 6px;
+    letter-spacing: 0.01em;
+  }
+
+  h1 .you { color: var(--gold); display: block; }
+
+  .rule {
+    width: 150px;
+    height: 2px;
+    background: var(--gold);
+    margin: 16px auto 12px;
+    border: 0;
+  }
+
+  .kicker {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    font-size: 0.82rem;
+    margin: 0 0 30px;
+    color: var(--cream);
+  }
+
+  .tagline {
+    color: var(--muted);
+    margin: 0 0 28px;
+    font-size: 1.05rem;
+  }
+
+  .cta {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 6px 22px rgba(0,0,0,.35);
+  }
+
+  .cta:hover { background: var(--gold-soft); }
+
+  .note {
+    color: var(--muted);
+    font-size: .9rem;
+    margin-top: 12px;
+  }
+
+  section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-top: 38px;
+    backdrop-filter: blur(2px);
+  }
+
+  h2 {
+    font-size: .78rem;
+    margin: 0 0 14px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  ol { margin: 0; padding-left: 20px; color: var(--cream); }
+  ol li { margin-bottom: 9px; }
+  ol li:last-child { margin-bottom: 0; }
+
+  .links { list-style: none; margin: 0; padding: 0; }
+  .links li { border-top: 1px solid var(--line); }
+  .links li:first-child { border-top: none; }
+  .links a {
+    display: block;
+    padding: 13px 0;
+    color: var(--cream);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .links a:hover { color: var(--gold); }
+
+  footer {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .85rem;
+  }
+</style>
+</head>
+<body>
+
+  <svg class="stars" aria-hidden="true">
+    <g fill="#ffffff">
+      <circle cx="8%"  cy="9%"  r="1.4" opacity=".85"/>
+      <circle cx="17%" cy="22%" r="1"   opacity=".55"/>
+      <circle cx="27%" cy="6%"  r="1.1" opacity=".7"/>
+      <circle cx="38%" cy="16%" r="1"   opacity=".45"/>
+      <circle cx="52%" cy="5%"  r="1.3" opacity=".8"/>
+      <circle cx="63%" cy="19%" r="1"   opacity=".5"/>
+      <circle cx="74%" cy="8%"  r="1.5" opacity=".85"/>
+      <circle cx="86%" cy="21%" r="1.1" opacity=".6"/>
+      <circle cx="93%" cy="11%" r="1"   opacity=".5"/>
+      <circle cx="12%" cy="36%" r="1.2" opacity=".6"/>
+      <circle cx="89%" cy="38%" r="1.3" opacity=".65"/>
+      <circle cx="5%"  cy="52%" r="1"   opacity=".45"/>
+      <circle cx="95%" cy="56%" r="1.1" opacity=".5"/>
+    </g>
+  </svg>
+
+  <svg class="hills" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,180 L0,118 C70,78 150,66 232,92 C300,114 352,150 420,160 L420,180 Z" fill="var(--hill-dark)"/>
+    <path d="M1200,180 L1200,110 C1120,70 1030,62 950,92 C880,118 820,152 752,162 L752,180 Z" fill="var(--hill-dark)"/>
+    <path d="M0,180 L0,142 C120,104 250,98 380,128 C520,160 640,170 760,142 C880,114 1030,106 1200,146 L1200,180 Z" fill="var(--hill)"/>
+  </svg>
+
+  <div class="wrap">
+
+    <header>
+      <svg class="wheel" width="136" height="150" viewBox="0 0 136 150" role="img" aria-label="Wooden spinning wheel">
+        <!-- pointer -->
+        <path d="M68 2 L78 16 L68 44 L58 16 Z" fill="#c9a24a" stroke="#10151f" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- wheel body -->
+        <circle cx="68" cy="84" r="58" fill="#4a3122" stroke="#10151f" stroke-width="4"/>
+        <!-- wood grain -->
+        <g stroke="#5c3f2c" stroke-width="2" opacity=".75">
+          <line x1="16" y1="62" x2="120" y2="62"/>
+          <line x1="12" y1="84" x2="124" y2="84"/>
+          <line x1="16" y1="106" x2="120" y2="106"/>
+        </g>
+        <!-- spokes -->
+        <g stroke="#e8e0cd" stroke-width="2.5" stroke-linecap="round">
+          <line x1="68" y1="84" x2="68" y2="30"/>
+          <line x1="68" y1="84" x2="115" y2="57"/>
+          <line x1="68" y1="84" x2="115" y2="111"/>
+          <line x1="68" y1="84" x2="68" y2="138"/>
+          <line x1="68" y1="84" x2="21" y2="111"/>
+          <line x1="68" y1="84" x2="21" y2="57"/>
+        </g>
+        <!-- pegs around the rim -->
+        <g fill="#10151f">
+          <circle cx="68" cy="30" r="4"/>
+          <circle cx="115" cy="57" r="4"/>
+          <circle cx="115" cy="111" r="4"/>
+          <circle cx="68" cy="138" r="4"/>
+          <circle cx="21" cy="111" r="4"/>
+          <circle cx="21" cy="57" r="4"/>
+        </g>
+        <!-- labels -->
+        <g stroke="#10151f" stroke-width="2">
+          <rect x="59" y="38"  width="18" height="26" rx="5" fill="#f5ecd7" transform="rotate(0 68 51)"/>
+          <rect x="59" y="104" width="18" height="26" rx="5" fill="#f5ecd7"/>
+          <rect x="88" y="56"  width="18" height="26" rx="5" fill="#f5ecd7" transform="rotate(58 97 69)"/>
+          <rect x="30" y="86"  width="18" height="26" rx="5" fill="#f5ecd7" transform="rotate(58 39 99)"/>
+          <rect x="88" y="86"  width="18" height="26" rx="5" fill="#f5ecd7" transform="rotate(-58 97 99)"/>
+          <rect x="30" y="56"  width="18" height="26" rx="5" fill="#f5ecd7" transform="rotate(-58 39 69)"/>
+        </g>
+        <g stroke-width="3" stroke-linecap="round">
+          <line x1="68" y1="44" x2="68" y2="58"  stroke="#c0392b"/>
+          <line x1="68" y1="110" x2="68" y2="124" stroke="#c0392b"/>
+          <line x1="92" y1="75" x2="102" y2="63"  stroke="#2e8b7a"/>
+          <line x1="34" y1="105" x2="44" y2="93"  stroke="#2e8b7a"/>
+          <line x1="92" y1="93" x2="102" y2="105" stroke="#b8912f"/>
+          <line x1="34" y1="63" x2="44" y2="75"   stroke="#b8912f"/>
+        </g>
+        <!-- hub -->
+        <circle cx="68" cy="84" r="9" fill="#c9a24a" stroke="#10151f" stroke-width="3"/>
+      </svg>
+
+      <h1>LUCKY<span class="you">YOU</span></h1>
+      <hr class="rule">
+      <p class="kicker">SPIN &middot; PICK &middot; WIN</p>
+
+      <p class="tagline">Can't decide? Spin for it.</p>
+
+      <a class="cta" href="https://apps.apple.com/app/id6817050356">Download on the App Store</a>
+      <p class="note">Free on iPhone and iPad</p>
+    </header>
+
+    <section>
+      <h2>How it works</h2>
+      <ol>
+        <li>Type in the things you're choosing between.</li>
+        <li>Give the wheel a spin.</li>
+        <li>It picks one at random. Argument over.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Support &amp; legal</h2>
+      <ul class="links">
+        <li><a href="support">Support</a></li>
+        <li><a href="privacy">Privacy Policy</a></li>
+        <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use (EULA)</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      © 2026 Meshari Alsuwayan
+    </footer>
+
+  </div>
+</body>
+</html>
